@@ -10,19 +10,10 @@ const divide = function (a, b) {
     return a / b;
 }
 
-const sum = function(arr) {
-  let sum1 = arr.reduce((total, num) => {
-    return total + num;
-  }, 0);
-  return sum1;
+const multiply = function(a, b) {
+    return a * b;
 };
 
-const multiply = function(arr) {
-  let mult1 = arr.reduce((total, num) => {
-    return total * num;
-  }, 1);
-  return mult1;
-};
 
 let firstNumInput;
 let secNumInput;
@@ -48,36 +39,61 @@ const operate = function(firstNumInput, secNumInput, operator) {
     }
 };
 
-const display = document.querySelector('#display');
-const screen = [];
-display.textContent = screen;
-const row = document.querySelector('.row');
 
-row.addEventListener('click', (event) => {
+const firstOrSecondInput = function(num) {
+    if (!firstNumInput) {
+        firstNumInput = num;
+    } else {
+        secNumInput = num;
+    }
+}
+
+const display = document.querySelector('#display');
+const buttons = document.querySelector('#calculator');
+
+const screen = [];
+
+const displayInputs = function(num) {
+    screen.push(num);
+    display.textContent = `${screen.join('')}`;
+}
+
+buttons.addEventListener('click', (event) => {
     let target = event.target;
     
     switch(target.id) {
         case 'one':
+            displayInputs(1);
         break;
         case 'two':
+            displayInputs(2);
         break;
         case 'three':
+            displayInputs(3);
         break;
         case 'four':
+            displayInputs(4);
         break;
         case 'five':
+            displayInputs(5);
         break;
         case 'six':
+            displayInputs(6);
         break;
         case 'seven':
+            displayInputs(7);
         break;
         case 'eight':
+            displayInputs(8);
         break;
         case 'nine':
+            displayInputs(9);
         break;
         case 'zero':
+            displayInputs(0);
         break;
         case 'C':
+            screen.splice(0, screen.length);
             display.textContent = '';
         break;
         case 'plusMinus':
@@ -85,22 +101,24 @@ row.addEventListener('click', (event) => {
         case 'percentage':
         break;
         case 'divide':
-            operator = /;
+            operator = '/';
         break;
         case 'multiply':
-            operator = *;
+            operator = '*';
         break;
         case 'minus':
-            operator = -;
+            operator = '-';
         break;
         case 'plus':
-            operator = +;
+            operator = '+';
         break;
         case 'point':
-            operator = /;
+            operator = '/';
         break;
         case 'equals':
             return operate(firstNumInput,secNumInput, operator);
         break;
     }
 })
+
+

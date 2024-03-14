@@ -26,7 +26,7 @@ button {
     flex: 1;
 }
 
-.row {
+.buttonRow {
     display: flex;
     flex-direction: row;
     background-color: black;
@@ -58,13 +58,13 @@ button {
 #display {
     display: flex;
     flex: auto;
-    font: center;
+    flex-direction: row;
     justify-content: end;
     align-items: center;
     background-color: black;
     color: white;
-    width: 300px;
     font-size: 50px;
-    border-width: 0px;
-    padding: 0px;
+    height: 75px;
+    width: 300px;
+    padding: auto;
 }

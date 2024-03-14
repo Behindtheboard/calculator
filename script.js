@@ -64,6 +64,7 @@ const combineInputs = function(num) {
 const numInputs = function(num) {
     if (result !== undefined) {
         firstNumInput = result;
+        secNumInput = undefined;
         secNumInput = Number(combineInputs(num));
         displayInput(secNumInput);
         console.log(`sec is ${secNumInput}`);
@@ -167,20 +168,20 @@ buttons.addEventListener('click', (event) => {
             // }
         break;
         case 'divide':
-            operator = '/';
-            clearArrays();
+            operatorCalulation('/');
+            console.log(operator);
         break;
         case 'multiply':
-            operator = 'x';
-            clearArrays();
+            operatorCalulation('x');
+            console.log(operator);
         break;
         case 'minus':
-            operator = '-';
-            clearArrays();
+            operatorCalulation('-');
+            console.log(operator);
         break;
         case 'plus':
-            operator = '+';
-            clearArrays();
+            operatorCalulation('+');
+            console.log(operator);
         break;
         case 'point':
             numInputs('.');
@@ -190,6 +191,21 @@ buttons.addEventListener('click', (event) => {
         break;
     }
 })
+
+const operatorCalulation = function(op) {
+    if (firstNumInput !== undefined && secNumInput !== undefined){
+        operate(firstNumInput, secNumInput, operator);
+        operator = op;
+        clearArrays();
+    } else if (result !== undefined) {
+        operate(firstNumInput, secNumInput, operator);
+        operator = op;
+        clearArrays();
+    } else {
+        operator = op;
+        clearArrays();
+    }
+}
 
 const displayInput = function(input){
     display.textContent = `${input}`;

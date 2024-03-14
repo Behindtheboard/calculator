@@ -61,12 +61,13 @@ const combineInputs = function(num) {
     return numArr.join('');
 }
 
-const displayInput = function(input){
-    display.textContent = `${input}`;
-}
-
 const numInputs = function(num) {
-    if (operator === undefined) {
+    if (result !== undefined) {
+        firstNumInput = result;
+        secNumInput = Number(combineInputs(num));
+        displayInput(secNumInput);
+        console.log(`sec is ${secNumInput}`);
+    } else if (operator === undefined) {
         firstNumInput = Number(combineInputs(num));
         displayInput(firstNumInput);
         console.log(`first is ${firstNumInput}`);
@@ -153,17 +154,17 @@ buttons.addEventListener('click', (event) => {
             }    
         break;
         case 'percentage':
-            if (operator === undefined) {
-                firstNumInput *= .01;
-                console.log(typeof firstNumInput)
-                displayInput(firstNumInput);
-            } if (result !== undefined) {
-                result *= .01;
-                displayInput(result);
-            } else {
-                secNumInput *= .01;
-                displayInput(secNumInput);
-            }
+            // if (operator === undefined) {
+            //     firstNumInput *= .01;
+            //     console.log(firstNumInput)
+            //     displayInput(firstNumInput);
+            // } if (result !== undefined) {
+            //     result *= .01;
+            //     displayInput(result);
+            // } else {
+            //     secNumInput *= .01;
+            //     displayInput(secNumInput);
+            // }
         break;
         case 'divide':
             operator = '/';
@@ -190,4 +191,6 @@ buttons.addEventListener('click', (event) => {
     }
 })
 
-
+const displayInput = function(input){
+    display.textContent = `${input}`;
+}

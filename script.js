@@ -18,7 +18,7 @@ const multiply = function(a, b) {
 let firstNumInput;
 let secNumInput;
 let operator;
-
+let result;
 const operate = function(firstNumInput, secNumInput, operator) {
     switch (operator) {
         case '/':
@@ -138,6 +138,7 @@ buttons.addEventListener('click', (event) => {
             clearArrays();
         break;
         case 'point':
+            numInputs('.');
         break;
         case 'equals':
             operate(firstNumInput, secNumInput, operator);

@@ -19,6 +19,7 @@ let firstNumInput;
 let secNumInput;
 let operator;
 let result;
+
 const operate = function(firstNumInput, secNumInput, operator) {
     switch (operator) {
         case '/':
@@ -54,11 +55,6 @@ const clearArrays = function() {
     numArr.splice(0, numArr.length);
 }
 
-const displayInputs = function(num) {
-    screenArr.push(num);
-    display.textContent = `${screenArr.join('')}`;
-}
-
 const combineInputs = function(num) {
     numArr.push(num);
     return numArr.join('');
@@ -67,11 +63,11 @@ const combineInputs = function(num) {
 const numInputs = function(num) {
     if (operator === undefined) {
         firstNumInput = Number(combineInputs(num));
-        displayInputs(num);
+        display.textContent = `${firstNumInput}`;
         console.log(`first is ${firstNumInput}`);
     } else {
         secNumInput = Number(combineInputs(num));
-        displayInputs(num);
+        display.textContent = `${secNumInput}`;
         console.log(`sec is ${secNumInput}`);
     }    
 }

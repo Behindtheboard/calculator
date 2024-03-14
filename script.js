@@ -14,7 +14,6 @@ const multiply = function(a, b) {
     return a * b;
 };
 
-
 let firstNumInput;
 let secNumInput;
 let operator;
@@ -35,9 +34,9 @@ const operate = function(firstNumInput, secNumInput, operator) {
         break;
 
         case '-':
-            result = minus(firstNumInput, secNumInput);
+            result = subtract(firstNumInput, secNumInput);
             display.textContent = `${result}`;
-            console.log(`result is ${minus(firstNumInput, secNumInput)}`);
+            console.log(`result is ${subtract(firstNumInput, secNumInput)}`);
         break;
         
         case '+':
@@ -118,6 +117,7 @@ buttons.addEventListener('click', (event) => {
             operator = undefined;
             firstNumInput = undefined;
             secNumInput = undefined;
+            result = undefined;
         break;
         case 'plusMinus':
             if (operator === undefined) {
@@ -129,6 +129,16 @@ buttons.addEventListener('click', (event) => {
                         .toString()
                         .slice(1,firstNumInput.length));
                     displayInput(firstNumInput);
+                }
+            } if (result !== undefined) {
+                if (result > 0) {
+                    result = -result;
+                    displayInput(result);
+                } else if (result < 0) {
+                    result = Number(result
+                        .toString()
+                        .slice(1,result.length));
+                    displayInput(result);
                 }
             } else {
                 if (secNumInput > 0) {
@@ -143,6 +153,17 @@ buttons.addEventListener('click', (event) => {
             }    
         break;
         case 'percentage':
+            if (operator === undefined) {
+                firstNumInput *= .01;
+                console.log(typeof firstNumInput)
+                displayInput(firstNumInput);
+            } if (result !== undefined) {
+                result *= .01;
+                displayInput(result);
+            } else {
+                secNumInput *= .01;
+                displayInput(secNumInput);
+            }
         break;
         case 'divide':
             operator = '/';

@@ -22,40 +22,58 @@ let operator;
 const operate = function(firstNumInput, secNumInput, operator) {
     switch (operator) {
         case '/':
-            return divide(firstNumInput, secNumInput);
+            display.textContent = `${divide(firstNumInput, secNumInput)}`;
+            console.log(`result is ${divide(firstNumInput, secNumInput)}`);
         break;
 
         case 'x':
-            return multiply(firstNumInput,secNumInput);
+            display.textContent = `${multiply(firstNumInput, secNumInput)}`;
+            console.log(`result is ${multiply(firstNumInput, secNumInput)}`);
         break;
 
         case '-':
-            return minus(firstNumInput, secNumInput);
+            display.textContent = `${minus(firstNumInput, secNumInput)}`;
+            console.log(`result is ${minus(firstNumInput, secNumInput)}`);
         break;
         
         case '+':
-            return add(firstNumInput, secNumInput);
+            display.textContent = `${add(firstNumInput, secNumInput)}`;
+            console.log(`result is ${add(firstNumInput, secNumInput)}`);
         break;
     }
 };
 
-
-const firstOrSecondInput = function(num) {
-    if (!firstNumInput) {
-        firstNumInput = num;
-    } else {
-        secNumInput = num;
-    }
-}
-
 const display = document.querySelector('#display');
 const buttons = document.querySelector('#calculator');
 
-const screen = [];
+const screenArr = [];
+const numArr = [];
+
+const clearArrays = function() {
+    screenArr.splice(0, screenArr.length);
+    numArr.splice(0, numArr.length);
+}
 
 const displayInputs = function(num) {
-    screen.push(num);
-    display.textContent = `${screen.join('')}`;
+    screenArr.push(num);
+    display.textContent = `${screenArr.join('')}`;
+}
+
+const combineInputs = function(num) {
+    numArr.push(num);
+    return numArr.join('');
+}
+
+const numInputs = function(num) {
+    if (operator === undefined) {
+        firstNumInput = Number(combineInputs(num));
+        displayInputs(num);
+        console.log(`first is ${firstNumInput}`);
+    } else {
+        secNumInput = Number(combineInputs(num));
+        displayInputs(num);
+        console.log(`sec is ${secNumInput}`);
+    }    
 }
 
 buttons.addEventListener('click', (event) => {
@@ -63,38 +81,41 @@ buttons.addEventListener('click', (event) => {
     
     switch(target.id) {
         case 'one':
-            displayInputs(1);
+            numInputs(1);
         break;
         case 'two':
-            displayInputs(2);
+            numInputs(2);
         break;
         case 'three':
-            displayInputs(3);
+            numInputs(3);
         break;
         case 'four':
-            displayInputs(4);
+            numInputs(4);
         break;
         case 'five':
-            displayInputs(5);
+            numInputs(5);
         break;
         case 'six':
-            displayInputs(6);
+            numInputs(6);
         break;
         case 'seven':
-            displayInputs(7);
+            numInputs(7);
         break;
         case 'eight':
-            displayInputs(8);
+            numInputs(8);
         break;
         case 'nine':
-            displayInputs(9);
+            numInputs(9);
         break;
         case 'zero':
-            displayInputs(0);
+            numInputs(0);
         break;
         case 'C':
-            screen.splice(0, screen.length);
+            clearArrays();
             display.textContent = '';
+            operator = undefined;
+            firstNumInput = undefined;
+            secNumInput = undefined;
         break;
         case 'plusMinus':
         break;
@@ -102,21 +123,24 @@ buttons.addEventListener('click', (event) => {
         break;
         case 'divide':
             operator = '/';
+            clearArrays();
         break;
         case 'multiply':
-            operator = '*';
+            operator = 'x';
+            clearArrays();
         break;
         case 'minus':
             operator = '-';
+            clearArrays();
         break;
         case 'plus':
             operator = '+';
+            clearArrays();
         break;
         case 'point':
-            operator = '/';
         break;
         case 'equals':
-            return operate(firstNumInput,secNumInput, operator);
+            operate(firstNumInput, secNumInput, operator);
         break;
     }
 })

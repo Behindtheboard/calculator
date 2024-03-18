@@ -48,7 +48,6 @@ const operate = function(firstNumInput, secNumInput, operator) {
 };
 
 const display = document.querySelector('#display');
-const buttons = document.querySelector('#calculator');
 
 const numArr = [];
 
@@ -57,8 +56,15 @@ const clearArrays = function() {
 }
 
 const combineInputs = function(num) {
-    numArr.push(num);
-    return numArr.join('');
+    numArr.push(num)
+    numArr.splice(9,1);
+    if (Number(numArr.join('')) === NaN) {
+        console.log(hit);
+        numArr.splice(numArr.length, 1);
+        return numArr.join('');
+    } else {
+        return numArr.join('');
+    }
 }
 
 const numInputs = function(num) {
@@ -79,41 +85,49 @@ const numInputs = function(num) {
     }    
 }
 
-buttons.addEventListener('click', (event) => {
-    let target = event.target;
-    
-    switch(target.id) {
-        case 'one':
+const buttons = document.querySelector('#calculator');
+
+const buttonOptions = function(event) {
+    let aim;
+    if (event.key === undefined) {
+        aim = event.target.id;
+    } else {
+        aim = event.key;
+    }
+    console.log(event.key);
+    console.log(event.target.id);
+    switch(aim) {
+        case '1':
             numInputs(1);
         break;
-        case 'two':
+        case '2':
             numInputs(2);
         break;
-        case 'three':
+        case '3':
             numInputs(3);
         break;
-        case 'four':
+        case '4':
             numInputs(4);
         break;
-        case 'five':
+        case '5':
             numInputs(5);
         break;
-        case 'six':
+        case '6':
             numInputs(6);
         break;
-        case 'seven':
+        case '7':
             numInputs(7);
         break;
-        case 'eight':
+        case '8':
             numInputs(8);
         break;
-        case 'nine':
+        case '9':
             numInputs(9);
         break;
-        case 'zero':
+        case '0':
             numInputs(0);
         break;
-        case 'C':
+        case 'c':
             clearArrays();
             display.textContent = '';
             operator = undefined;
@@ -154,45 +168,49 @@ buttons.addEventListener('click', (event) => {
                 }
             }    
         break;
-        case 'percentage':
-            // if (operator === undefined) {
-            //     firstNumInput *= .01;
-            //     console.log(firstNumInput)
-            //     displayInput(firstNumInput);
-            // } if (result !== undefined) {
-            //     result *= .01;
-            //     displayInput(result);
-            // } else {
-            //     secNumInput *= .01;
-            //     displayInput(secNumInput);
-            // }
+        case '%':
+            if (operator === undefined) {
+                firstNumInput *= .01;
+                displayInput(firstNumInput);
+            } else if (result !== undefined) {
+                result *= .01;
+                displayInput(result);
+            } else {
+                secNumInput *= .01;
+                displayInput(secNumInput);
+            }
         break;
-        case 'divide':
-            operatorCalulation('/');
+        case '/':
+            operatorCalculation('/');
             console.log(operator);
         break;
-        case 'multiply':
-            operatorCalulation('x');
+        case 'x': case '*':
+            operatorCalculation('x');
             console.log(operator);
         break;
-        case 'minus':
-            operatorCalulation('-');
+        case '-':
+            operatorCalculation('-');
             console.log(operator);
         break;
-        case 'plus':
-            operatorCalulation('+');
+        case '+':
+            operatorCalculation('+');
             console.log(operator);
         break;
-        case 'point':
+        case '.':
             numInputs('.');
         break;
-        case 'equals':
+        case '=':
             operate(firstNumInput, secNumInput, operator);
         break;
     }
-})
+}
 
-const operatorCalulation = function(op) {
+buttons.addEventListener('click', buttonOptions);
+
+const body = document.querySelector('body');
+body.addEventListener('keypress', buttonOptions);
+
+const operatorCalculation = function(op) {
     if (firstNumInput !== undefined && secNumInput !== undefined){
         operate(firstNumInput, secNumInput, operator);
         operator = op;
@@ -209,4 +227,6 @@ const operatorCalulation = function(op) {
 
 const displayInput = function(input){
     display.textContent = `${input}`;
+    console.log(`display input ${input}`);
+    console.log(`display input typeof ${typeof input}`);
 }

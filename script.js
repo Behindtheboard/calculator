@@ -55,12 +55,14 @@ const clearArrays = function() {
     numArr.splice(0, numArr.length);
 }
 
-const combineInputs = function(num) {
-    if (num === '.' && numArr.includes('.') === true) {
+const combineInputs = function(input) {
+    if (input === '.' && numArr.includes('.') === true) {
         return Number(numArr.join(''));
+    } else if (input === 'Backspace'){
+        numArr.splice((numArr.length-1),1);
+        return Number(numArr.join('')); 
     } else {
-        console.log('hit');
-        numArr.push(num)
+        numArr.push(input)
         numArr.splice(9,1);
         return Number(numArr.join(''));
     }
@@ -68,8 +70,6 @@ const combineInputs = function(num) {
 
 const displayInput = function(input){
     display.textContent = `${input}`;
-    console.log(`display input ${input}`);
-    console.log(`display input typeof ${typeof input}`);
 }
 
 const numInputs = function(num) {
@@ -100,6 +100,7 @@ const operatorInput = function(op) {
         operate(firstNumInput, secNumInput, operator);
         operator = op;
         clearArrays();
+    } else if (op === operator) {
     } else {
         operator = op;
         clearArrays();
@@ -113,8 +114,6 @@ const buttonOptions = function(event) {
     } else {
         aim = event.key;
     }
-    console.log(event.key);
-    console.log(event.target.id);
     switch(aim) {
         case '1':
             numInputs(1);
@@ -146,7 +145,7 @@ const buttonOptions = function(event) {
         case '0':
             numInputs(0);
         break;
-        case 'c': case 'delete':
+        case 'c':
             clearArrays();
             display.textContent = '';
             operator = undefined;
@@ -218,6 +217,9 @@ const buttonOptions = function(event) {
         case '.':
             numInputs('.');
         break;
+        case 'Backspace':
+            displayInput(combineInputs('Backspace'));
+        break;
         case '=': case 'Enter':
             operate(firstNumInput, secNumInput, operator);
             firstNumInput = undefined;
@@ -232,4 +234,4 @@ const buttons = document.querySelector('#calculator');
 buttons.addEventListener('click', buttonOptions);
 
 const body = document.querySelector('body');
-body.addEventListener('keypress', buttonOptions);
+body.addEventListener('keydown', buttonOptions);

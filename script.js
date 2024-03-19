@@ -142,7 +142,7 @@ const buttonOptions = function(event) {
         case '9':
             numInputs(9);
         break;
-        case '0':
+        case '0': case 'zero':
             numInputs(0);
         break;
         case 'c':
@@ -215,17 +215,20 @@ const buttonOptions = function(event) {
             console.log(operator);
         break;
         case '.':
-            numInputs('.');
+            displayInput(combineInputs('.'));
         break;
         case 'Backspace':
             displayInput(combineInputs('Backspace'));
         break;
         case '=': case 'Enter':
-            operate(firstNumInput, secNumInput, operator);
-            firstNumInput = undefined;
-            secNumInput = undefined;
-            operator = undefined;
-            clearArrays();
+            if (secNumInput === undefined){
+            } else {                
+                operate(firstNumInput, secNumInput, operator);
+                firstNumInput = undefined;
+                secNumInput = undefined;
+                operator = undefined;
+                clearArrays();
+            }
         break;
     }
 }

@@ -25,28 +25,21 @@ const operate = function(firstNumInput, secNumInput, operator) {
     switch (operator) {
         case '/':
             result = divide(firstNumInput, secNumInput);
-            display.textContent = `${result}`;
-            console.log(`result is ${divide(firstNumInput, secNumInput)}`);
         break;
 
         case 'x':
             result = multiply(firstNumInput, secNumInput);
-            display.textContent = `${result}`;
-            console.log(`result is ${multiply(firstNumInput, secNumInput)}`);
         break;
 
         case '-':
             result = subtract(firstNumInput, secNumInput);
-            display.textContent = `${result}`;
-            console.log(`result is ${subtract(firstNumInput, secNumInput)}`);
         break;
         
         case '+':
             result = add(firstNumInput, secNumInput);
-            display.textContent = `${result}`;
-            console.log(`result is ${add(firstNumInput, secNumInput)}`);
         break;
     }
+    displayInput(`${result}`);
 };
 
 const numArr = [];
@@ -63,13 +56,19 @@ const combineInputs = function(input) {
         return Number(numArr.join('')); 
     } else {
         numArr.push(input)
-        numArr.splice(9,1);
+        numArr.splice(12,1);
         return Number(numArr.join(''));
     }
 }
 
 const displayInput = function(input){
-    display.textContent = `${input}`;
+    if (input.toString().length > 13) {
+        display.style.fontSize = '25px';
+        display.textContent = `${input}`;
+    } else {
+        display.style.fontSize = '40px';
+        display.textContent = `${input}`;
+    }
 }
 
 const numInputs = function(num) {
@@ -77,17 +76,14 @@ const numInputs = function(num) {
         result = undefined;
         firstNumInput = combineInputs(num);
         displayInput(firstNumInput);
-        console.log(`first is ${firstNumInput}`);
     } else if (result !== undefined) {
         firstNumInput = result;
         secNumInput = undefined;
         secNumInput = combineInputs(num);
         displayInput(secNumInput);
-        console.log(`sec is ${secNumInput}`);
     } else {
         secNumInput = combineInputs(num);
         displayInput(secNumInput);
-        console.log(`sec is ${secNumInput}`);
     }    
 }
 
@@ -200,19 +196,15 @@ const buttonOptions = function(event) {
         break;
         case '/':
             operatorInput('/');
-            console.log(operator);
         break;
         case 'x': case '*':
             operatorInput('x');
-            console.log(operator);
         break;
         case '-':
             operatorInput('-');
-            console.log(operator);
         break;
         case '+':
             operatorInput('+');
-            console.log(operator);
         break;
         case '.':
             displayInput(combineInputs('.'));
